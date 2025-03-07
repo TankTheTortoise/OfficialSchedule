@@ -34,9 +34,8 @@ teachers = teacher_preference.keys().tolist()
 periods = [i for i in range(1, 8)]
 classes = classes()
 
-student_preference = [[0 for i in range(num_of_classes)] for student in students]
+
 students_required = [[] for student in students]
-teacher_desirability = [[0 for i in range(num_of_classes)] for teacher in teachers]
 for i in range(len(students)):
     students_required[i] = student_choice[students[i]]["required"]
 
@@ -48,16 +47,9 @@ for i in range(teacher_preference.shape[1]):
     deep_copy = copy.deepcopy(teacher_able)
     teacher_unable.append(list(set(classes).difference(set(deep_copy[i]))))
 
-# inverse Set.intersection
-for i in range(len(teachers)):
-    for j in range(len(teacher_preference[teachers[i]]["desired"])):
-        # teacher_desirability[i][teacher_preference[teachers[i]]["desired"][j] - 1] = 4 - j
-        ...
-
 students_classes = LpVariable.dicts("Student's_classes", (students, classes, periods), cat=LpBinary)
 teachers_classes = LpVariable.dicts("Teacher's_classes", (teachers, classes, periods), cat=LpBinary)
-student_desirability = makeDict([students, ], student_preference)
-# teacher_desirability = makeDict([teachers, classes], teacher_desirability)
+
 students_required = makeDict([students], students_required)
 teacher_unable = makeDict([teachers], teacher_unable)
 teacher_able = makeDict([teachers], teacher_able)
