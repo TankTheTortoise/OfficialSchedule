@@ -11,8 +11,7 @@
       "Precalculus",
       "Algebra 1 H",
       "Algebra 2 H",
-      "Precalculus H",
-      "Statistics"
+      "Precalculus H"
     ]
   },
   "Burchell": {
@@ -60,8 +59,7 @@
       "Precalculus",
       "Algebra 1 H",
       "Algebra 2 H",
-      "Precalculus H",
-      "Statistics"
+      "Precalculus H"
     ]
   },
   "Adair": {
@@ -77,10 +75,11 @@
       "English 1 H",
       "English 2 H",
       "English 3 H",
+      "Creative Writing",
       "AP Seminar"
     ]
   },
-  "Price": {
+  "Kelly": {
     "desired": [
       "English 3",
       "English 3 H",
@@ -97,73 +96,6 @@
       "AP Seminar"
     ]
   },
-  "Uram": {
-    "desired": [
-      "ESS",
-      "ESS H"
-    ],
-    "able": [
-      "ESS",
-      "Bio",
-      "Chem",
-      "ESS H",
-      "Bio H",
-      "Chem H"
-    ]
-  },
-  "Rowlands": {
-    "desired": [
-      "Bio",
-      "Bio H"
-    ],
-    "able": [
-      "ESS",
-      "Bio",
-      "Chem",
-      "ESS H",
-      "Bio H",
-      "Chem H"
-    ]
-  },
-  "AmyKelly": {
-    "desired": [
-      "American Perspectives 1",
-      "CWS",
-      "American Perspectives 1 H",
-      "CWS H"
-    ],
-    "able": [
-      "American Perspectives 1",
-      "CWS",
-      "Civics",
-      "American Perspectives 1 H",
-      "CWS H",
-      "Civics H"
-    ]
-  },
-  "Calder": {
-    "desired": [
-      "American Perspectives 1",
-      "Civics",
-      "American Perspectives 1 H",
-      "Civics H"
-    ],
-    "able": [
-      "American Perspectives 1",
-      "CWS",
-      "Civics",
-      "American Perspectives 1 H",
-      "CWS H",
-      "Civics H"
-    ]
-  },
-  "Caroleena": {
-    "desired": [
-      "Spanish 1", "Spanish 1 H"
-    ],
-    "able": [
-      "Spanish 1", "Spanish 1 H"
-    ]
-  }
+
 }
 

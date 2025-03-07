@@ -11,12 +11,18 @@ def classes():
             "English 1 H", "English 2 H", "English 3 H",
             "ESS", "Bio", "Chem",
             "ESS H", "Bio H", "Chem H",
-            "American Perspectives 1", "CWS", "American Perspectives 2",
-            "American Perspectives 1 H", "CWS H", "American Perspectives 2 H",
+            "American Perspectives 1", "CWS", "Civics",
+            "American Perspectives 1 H", "CWS H", "Civics H",
             "Spanish 1", "Spanish 1 H",
             "Statistics", "Accounting", "Accounting H",
             "Creative Writing", "AP Seminar",
-            "CTC", "Lunch"]
+            "CTC", "Lunch",
+
+            "Accounting", "Accounting H",
+            "Engineering", "Computer Science", "Spanish 1", "Spanish 1 H"
+            ]
+
+
 
 def random_courses():
     classes = ["Algebra 1", "Algebra 2", "Precalculus",
@@ -25,8 +31,8 @@ def random_courses():
                "English 1 H", "English 2 H", "English 3 H",
                "ESS", "Bio", "Chem",
                "ESS H", "Bio H", "Chem H",
-               "American Perspectives 1", "CWS", "American Perspectives 2",
-               "American Perspectives 1 H", "CWS H", "American Perspectives 2 H",
+               "American Perspectives 1", "CWS", "Civics",
+               "American Perspectives 1 H", "CWS H", "Civics H",
                "Spanish 1", "Spanish 1 H",
                "Statistics", "Accounting", "Accounting H",
                "Creative Writing", "AP Seminar",
@@ -51,7 +57,7 @@ def random_courses():
             required_courses.append(choice(["Precalculus H", "Precalculus H"]))
             required_courses.append(choice(["English 3", "English 3 H"]))
             required_courses.append(choice(["Chem", "Chem H"]))
-            required_courses.append(choice(["American Perspectives 2", "American Perspectives 2 H"]))
+            required_courses.append(choice(["Civics", "Civics H"]))
     if random.randint(0, 1) == 1:
         required_courses.append("CTC")
 
@@ -82,4 +88,4 @@ def create_students(alphabet: str, file: str):
 
 
 if __name__ == "__main__":
-    create_students("abc", "student_test.json")
+    create_students("abcde", "student_test.json")
