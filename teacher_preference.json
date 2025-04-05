@@ -159,11 +159,400 @@
   },
   "Caroleena": {
     "desired": [
-      "Spanish 1", "Spanish 1 H"
+      "Spanish 1",
+      "Spanish 1 H"
     ],
     "able": [
-      "Spanish 1", "Spanish 1 H"
+      "Spanish 1",
+      "Spanish 1 H"
+    ]
+  },
+  "Pricci2": {
+    "desired": [
+      "Algebra 1",
+      "Algebra 2 H",
+      "Precalculus H"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Burchell2": {
+    "desired": [
+      "Precalculus",
+      "Precalculus H",
+      "Statistics"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Pryle2": {
+    "desired": [
+      "English 2",
+      "English 2 H"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "Creative Writing",
+      "AP Seminar"
+    ]
+  },
+  "Brown2": {
+    "desired": [
+      "Algebra 1",
+      "Algebra 2",
+      "Algebra 1 H",
+      "Algebra 2 H"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Adair2": {
+    "desired": [
+      "English 1",
+      "English 1 H",
+      "AP Seminar"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "AP Seminar"
+    ]
+  },
+  "Price2": {
+    "desired": [
+      "English 3",
+      "English 3 H",
+      "Creative Writing"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "Creative Writing",
+      "AP Seminar"
+    ]
+  },
+  "Uram2": {
+    "desired": [
+      "ESS",
+      "ESS H"
+    ],
+    "able": [
+      "ESS",
+      "Bio",
+      "Chem",
+      "ESS H",
+      "Bio H",
+      "Chem H"
+    ]
+  },
+  "Rowlands2": {
+    "desired": [
+      "Bio",
+      "Bio H"
+    ],
+    "able": [
+      "ESS",
+      "Bio",
+      "Chem",
+      "ESS H",
+      "Bio H",
+      "Chem H"
+    ]
+  },
+  "AmyKelly2": {
+    "desired": [
+      "American Perspectives 1",
+      "CWS",
+      "American Perspectives 1 H",
+      "CWS H"
+    ],
+    "able": [
+      "American Perspectives 1",
+      "CWS",
+      "Civics",
+      "American Perspectives 1 H",
+      "CWS H",
+      "Civics H"
+    ]
+  },
+  "Calder2": {
+    "desired": [
+      "American Perspectives 1",
+      "Civics",
+      "American Perspectives 1 H",
+      "Civics H"
+    ],
+    "able": [
+      "American Perspectives 1",
+      "CWS",
+      "Civics",
+      "American Perspectives 1 H",
+      "CWS H",
+      "Civics H"
+    ]
+  },
+  "Caroleena2": {
+    "desired": [
+      "Spanish 1",
+      "Spanish 1 H"
+    ],
+    "able": [
+      "Spanish 1",
+      "Spanish 1 H"
+    ]
+  },
+  "Pricci3": {
+    "desired": [
+      "Algebra 1",
+      "Algebra 2 H",
+      "Precalculus H"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Burchell3": {
+    "desired": [
+      "Precalculus",
+      "Precalculus H",
+      "Statistics"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Pryle3": {
+    "desired": [
+      "English 2",
+      "English 2 H"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "Creative Writing",
+      "AP Seminar"
+    ]
+  },
+  "Brown3": {
+    "desired": [
+      "Algebra 1",
+      "Algebra 2",
+      "Algebra 1 H",
+      "Algebra 2 H"
+    ],
+    "able": [
+      "Algebra 1",
+      "Algebra 2",
+      "Precalculus",
+      "Algebra 1 H",
+      "Algebra 2 H",
+      "Precalculus H",
+      "Statistics"
+    ]
+  },
+  "Adair3": {
+    "desired": [
+      "English 1",
+      "English 1 H",
+      "AP Seminar"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "AP Seminar"
+    ]
+  },
+  "Price3": {
+    "desired": [
+      "English 3",
+      "English 3 H",
+      "Creative Writing"
+    ],
+    "able": [
+      "English 1",
+      "English 2",
+      "English 3",
+      "English 1 H",
+      "English 2 H",
+      "English 3 H",
+      "Creative Writing",
+      "AP Seminar"
+    ]
+  },
+  "Uram3": {
+    "desired": [
+      "ESS",
+      "ESS H"
+    ],
+    "able": [
+      "ESS",
+      "Bio",
+      "Chem",
+      "ESS H",
+      "Bio H",
+      "Chem H"
+    ]
+  },
+  "Rowlands3": {
+    "desired": [
+      "Bio",
+      "Bio H"
+    ],
+    "able": [
+      "ESS",
+      "Bio",
+      "Chem",
+      "ESS H",
+      "Bio H",
+      "Chem H"
+    ]
+  },
+  "AmyKelly3": {
+    "desired": [
+      "American Perspectives 1",
+      "CWS",
+      "American Perspectives 1 H",
+      "CWS H"
+    ],
+    "able": [
+      "American Perspectives 1",
+      "CWS",
+      "Civics",
+      "American Perspectives 1 H",
+      "CWS H",
+      "Civics H"
+    ]
+  },
+  "Calder3": {
+    "desired": [
+      "American Perspectives 1",
+      "Civics",
+      "American Perspectives 1 H",
+      "Civics H"
+    ],
+    "able": [
+      "American Perspectives 1",
+      "CWS",
+      "Civics",
+      "American Perspectives 1 H",
+      "CWS H",
+      "Civics H"
+    ]
+  },
+  "Caroleena3": {
+    "desired": [
+      "Spanish 1",
+      "Spanish 1 H"
+    ],
+    "able": [
+      "Spanish 1",
+      "Spanish 1 H"
+    ]
+  },
+  "Accounting": {
+    "desired": [
+      "Accounting",
+      "Accounting H"
+    ],
+    "able": [
+      "Accounting",
+      "Accounting H"
+    ]
+  },
+  "Williams": {
+    "desired": [
+      "Engineering"
+    ],
+    "able": [
+      "Engineering"
+    ]
+  },
+  "Rude": {
+    "desired": [
+      "Health"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "Repshis": {
+    "desired": [
+      "Gym"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "BKelly": {
+    "desired": [
+      "FCS"
+    ],
+    "able": [
+      "FCS"
+    ]
+  },
+  "Kallinger-Allen": {
+    "desired": [
+      "PGP"
+    ],
+    "able": [
+      "PGP"
     ]
   }
 }
-

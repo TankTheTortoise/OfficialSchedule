@@ -13,8 +13,8 @@ import json
 
 from student_generator import classes
 
-max_students = 140
-num_of_classes = 10
+max_students = 500
+num_of_classes = 8
 
 prob = LpProblem("Scheduling", LpMaximize)
 
@@ -31,8 +31,14 @@ teacher_preference = pd.DataFrame.from_dict(teacher_preference)
 students = student_choice.keys().tolist()
 teachers = teacher_preference.keys().tolist()
 
-periods = [i for i in range(1, 8)]
-classes = classes()
+# Common Variables
+periods = [i for i in range(1, 8 + 1)]
+classes_with_credits = classes()
+half_credit = [c for c in classes_with_credits.keys() if classes_with_credits[c]<1]
+
+classes = list(classes_with_credits.keys())
+print(classes_with_credits["Algebra 1"])
+quarters = [1, 2]
 
 student_preference = [[0 for i in range(num_of_classes)] for student in students]
 students_required = [[] for student in students]
@@ -54,40 +60,70 @@ for i in range(len(teachers)):
         # teacher_desirability[i][teacher_preference[teachers[i]]["desired"][j] - 1] = 4 - j
         ...
 
-students_classes = LpVariable.dicts("Student's_classes", (students, classes, periods), cat=LpBinary)
-teachers_classes = LpVariable.dicts("Teacher's_classes", (teachers, classes, periods), cat=LpBinary)
+students_classes = LpVariable.dicts("Student's_classes", (students, classes, periods, quarters), cat=LpBinary)
+
+teachers_classes = LpVariable.dicts("Teacher's_classes", (teachers, classes, periods, quarters), cat=LpBinary)
+
 student_desirability = makeDict([students, ], student_preference)
+
 # teacher_desirability = makeDict([teachers, classes], teacher_desirability)
 students_required = makeDict([students], students_required)
 teacher_unable = makeDict([teachers], teacher_unable)
 teacher_able = makeDict([teachers], teacher_able)
 
+CTC_students = []
+for s in students:
+    if "CTC" in students_required[s]:
+        CTC_students.append(s)
+
+AM_CTC = LpVariable.dicts("AM_CTC", indices=CTC_students, cat=LpBinary)
+
 for t in teachers:
     for p in periods:
-        prob += lpSum([teachers_classes[t][c][p] for c in teacher_able[t]]) <= 1
+        prob += lpSum(
+            [teachers_classes[t][c][p][q] * classes_with_credits[c] for c in teacher_able[t] for q in quarters]) <= 1
         # I removed this line that was making teachers not always assigned
         # The other two constraints are equivalent to what I mean
         # prob += lpSum([teachers_classes[t][str(c)][p] for c in classes]) == 1
-        prob += lpSum([teachers_classes[t][c][p] for c in teacher_unable[t]]) == 0
+        for q in quarters:
+            prob += lpSum([teachers_classes[t][c][p][q] for c in teacher_unable[t]]) == 0
 
 for s in students:
     for p in periods:
-        prob += lpSum([students_classes[s][c][p] for c in classes]) == 1
-    for c in classes:
-        prob += lpSum([students_classes[s][c][p] for p in periods]) <= 1
+        prob += lpSum([students_classes[s][c][p][1] for c in classes]) >= lpSum(
+            [students_classes[s][c][p][2] for c in classes])
 
-for s in students:
-    for r in students_required[s]:
-        prob += lpSum([students_classes[s][r][p] for p in periods]) == 1
+        prob += lpSum([students_classes[s][c][p][q] * classes_with_credits[c] for q in quarters for c in classes]) == 1
+        for q in quarters:
+            prob += lpSum([students_classes[s][c][p][q] for c in classes]) <= 1
+
+    for c in classes:
+        if c in students_required[s]:
+            if c == "CTC":
+                # There is no half year CTC, so Q1 is used. Only Q1 means full year.
+                prob += lpSum([students_classes[s][c][p][1] for p in [1, 2, 3, 4]]) == 4 * AM_CTC[s]
+                prob += lpSum([students_classes[s][c][p][1] for p in [5, 6, 7, 8]]) == 4 * (1 - AM_CTC[s])
+            else:
+                prob += lpSum([students_classes[s][c][p][q] for p in periods for q in quarters]) == 1
+
+        else:
+            prob += lpSum([students_classes[s][c][p][q] for p in periods for q in quarters]) <= 1
+
+    if s not in CTC_students:
+        prob += lpSum([students_classes[s]["Lunch"][p][1] for p in [4, 5, 6, 7]]) == 1
 
 for p in periods:
     for c in classes:
-        if c == "CTC" or c == "Lunch":
+        if c == "CTC":
             continue
-        prob += lpSum([students_classes[s][c][p] for s in students]) <= max_students * lpSum(
-            [teachers_classes[t][c][p] for t in teachers])
-        # Only one teacher per class
-        prob += lpSum([teachers_classes[t][c][p] for t in teachers]) <= 1
+        elif c == "Lunch":
+            prob += lpSum([students_classes[s][c][p][1] for s in students]) <= 350
+        else:
+            for q in quarters:
+                prob += lpSum([students_classes[s][c][p][q] for s in students]) <= max_students * lpSum(
+                    [teachers_classes[t][c][p][q] for t in teachers])
+                # Only one teacher per class
+                prob += lpSum([teachers_classes[t][c][p][q] for t in teachers]) <= 1
 
 # Must take class algebra 2 if you want to take stat
 for s in students:
@@ -98,14 +134,17 @@ for s in students:
 # Teacher either has class or prep period
 
 
+## Objective ##
+
 teacher_happiness = []
 for t in teachers:
     for c in teacher_preference[t]["desired"]:
-        teacher_happiness.append(lpSum([teachers_classes[t][c][p] for p in periods]))
+        teacher_happiness.append(lpSum([teachers_classes[t][c][p][q] for p in periods for q in quarters]))
 
 prob += lpSum(
-    [students_classes[s][c][p] * student_choice[s]["elective"][c] for
-     s in students for c in student_choice[s]["elective"] for p in periods]) + lpSum(teacher_happiness)
+    [students_classes[s][c][p][q] * student_choice[s]["elective"][c] for
+     s in students for c in student_choice[s]["elective"] for p in periods for q in quarters]) + lpSum(
+    teacher_happiness)
 
 start = time()
 prob.solve(getSolver("HiGHS"))
@@ -115,6 +154,7 @@ trues = 0
 falses = 0
 is_teacher = False
 with open("schedule.csv", "w") as file:
+    file.write(f"Students,")
     for s in students:
         if s != students[-1]:
             file.write(f"{s},")
@@ -123,29 +163,31 @@ with open("schedule.csv", "w") as file:
 
     file.write("\n")
     for p in periods:
+        file.write(f"{p},")
         for s in students:
             for c in classes:
-                if students_classes[s][c][p].value() == 1:
+                class_exist = False
 
+                if students_classes[s][c][p][1].value() > 0:
+                    file.write(f"Q1:")
                     if c == "CTC" or c == "Lunch":
                         trues += 1
-                        if s == students[-1]:
-                            file.write(f"{c}")
-                        else:
-                            file.write(f"{c},")
+                        file.write(f"{c}")
                     else:
                         for t in teachers:
 
-                            if teachers_classes[t][c][p].value() == 1:
-                                if c in teacher_able[t]:
+                            if teachers_classes[t][c][p][1].value() > 0:
+                                trues += 1
+                                file.write(f"{c}:{t}")
+                    for h in half_credit:
+                        if students_classes[s][h][p][2].value() > 0:
+                            file.write(f" | Q2:")
+                            for t in teachers:
+                                if teachers_classes[t][h][p][2].value() > 0:
                                     trues += 1
-                                else:
-                                    falses += 1
-                                if s == students[-1]:
-                                    file.write(f"{c}:{t}")
-                                else:
-                                    file.write(f"{c}:{t},")
-
+                                    file.write(f"{h}:{t}")
+                    if s != students[-1]:
+                        file.write(f",")
         file.write(f"\n")
 
 print(f"{trues}/{len(students) * len(periods)} Correct")
