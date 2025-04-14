@@ -2,6 +2,7 @@ import copy
 import sys
 
 import time
+from tkinter.font import names
 
 import networkx as nx
 import grinpy
@@ -12,8 +13,11 @@ import numpy as np
 import json
 
 from student_generator import classes
+from display import *
 
-max_students = 500
+pd.set_option('display.max_columns', None)
+
+max_students = 50
 num_of_classes = 8
 
 prob = LpProblem("Scheduling", LpMaximize)
@@ -34,7 +38,7 @@ teachers = teacher_preference.keys().tolist()
 # Common Variables
 periods = [i for i in range(1, 8 + 1)]
 classes_with_credits = classes()
-half_credit = [c for c in classes_with_credits.keys() if classes_with_credits[c]<1]
+half_credit = [c for c in classes_with_credits.keys() if classes_with_credits[c] < 1]
 
 classes = list(classes_with_credits.keys())
 print(classes_with_credits["Algebra 1"])
@@ -96,6 +100,13 @@ for s in students:
         prob += lpSum([students_classes[s][c][p][q] * classes_with_credits[c] for q in quarters for c in classes]) == 1
         for q in quarters:
             prob += lpSum([students_classes[s][c][p][q] for c in classes]) <= 1
+            match student_choice[s]["grade"]:
+                case 9:
+                    prob += lpSum([students_classes[s][c][p][q] for c in ["FCS", "PGP"]]) == 0
+                case 10:
+                    prob += lpSum([students_classes[s][c][p][q] for c in ["Health", "PGP"]]) == 0
+                case 11:
+                    prob += lpSum([students_classes[s][c][p][q] for c in ["FCS", "Health"]]) == 0
 
     for c in classes:
         if c in students_required[s]:
@@ -150,48 +161,17 @@ start = time()
 prob.solve(getSolver("HiGHS"))
 print(f"Finished in {time() - start:.2f}s")
 
-trues = 0
-falses = 0
-is_teacher = False
-with open("schedule.csv", "w") as file:
-    file.write(f"Students,")
-    for s in students:
-        if s != students[-1]:
-            file.write(f"{s},")
-        else:
-            file.write(f"{s}")
-
-    file.write("\n")
-    for p in periods:
-        file.write(f"{p},")
-        for s in students:
-            for c in classes:
-                class_exist = False
-
-                if students_classes[s][c][p][1].value() > 0:
-                    file.write(f"Q1:")
-                    if c == "CTC" or c == "Lunch":
-                        trues += 1
-                        file.write(f"{c}")
-                    else:
-                        for t in teachers:
-
-                            if teachers_classes[t][c][p][1].value() > 0:
-                                trues += 1
-                                file.write(f"{c}:{t}")
-                    for h in half_credit:
-                        if students_classes[s][h][p][2].value() > 0:
-                            file.write(f" | Q2:")
-                            for t in teachers:
-                                if teachers_classes[t][h][p][2].value() > 0:
-                                    trues += 1
-                                    file.write(f"{h}:{t}")
-                    if s != students[-1]:
-                        file.write(f",")
-        file.write(f"\n")
-
-print(f"{trues}/{len(students) * len(periods)} Correct")
-
 print(f"There are {len(students)} students")
 print(f"There are {len(teachers)} teachers")
 print(f"The happiness per student is {value(prob.objective) / len(students):.2f}")
+
+
+
+
+headers = student_keys(students)
+courses = pd.DataFrame(get_courses(students, students_classes, periods, classes, quarters), columns=headers, index = periods)
+
+
+
+courses.to_csv("schedule.csv")
+

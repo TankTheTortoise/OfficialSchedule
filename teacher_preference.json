@@ -554,5 +554,81 @@
     "able": [
       "PGP"
     ]
+  },
+  "Sedon": {
+    "desired": [
+      "Computer Science"
+    ],
+    "able": [
+      "Computer Science"
+    ]
+  },
+  "Rude2": {
+    "desired": [
+      "Health"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "Repshis2": {
+    "desired": [
+      "Gym"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "BKelly2": {
+    "desired": [
+      "FCS"
+    ],
+    "able": [
+      "FCS"
+    ]
+  },
+  "Kallinger-Allen2": {
+    "desired": [
+      "PGP"
+    ],
+    "able": [
+      "PGP"
+    ]
+  },
+  "Rude3": {
+    "desired": [
+      "Health"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "Repshis3": {
+    "desired": [
+      "Gym"
+    ],
+    "able": [
+      "Health",
+      "Gym"
+    ]
+  },
+  "BKelly3": {
+    "desired": [
+      "FCS"
+    ],
+    "able": [
+      "FCS"
+    ]
+  },
+  "Kallinger-Allen3": {
+    "desired": [
+      "PGP"
+    ],
+    "able": [
+      "PGP"
+    ]
   }
 }

@@ -76,20 +76,22 @@ def random_courses():
     elective_courses += [choice(["Statistics", "Creative Writing", "Gym"])]
     elective_courses = dict(zip(elective_courses, [5, 4, 3, 2]))
 
-    return (required_courses, elective_courses)
+    return (required_courses, elective_courses, grade)
 
 
 def create_students(alphabet: str, file: str):
     students = ["".join(p) for p in permutations(alphabet)]
     required_courses = []
     elective_courses = []
+    grades = []
     for s in students:
-        requireds, electives = random_courses()
+        requireds, electives, grade = random_courses()
+        grades.append(grade)
         required_courses.append(requireds)
         elective_courses.append(electives)
 
     course_dict = list(
-        {"required": required_courses[i], "elective": elective_courses[i]} for i in range(len(students)))
+        {"grade": grades[i], "required": required_courses[i], "elective": elective_courses[i]} for i in range(len(students)))
     data = dict(zip(students, course_dict))
 
     with open("student_test.json", "w") as file:
@@ -97,4 +99,4 @@ def create_students(alphabet: str, file: str):
 
 
 if __name__ == "__main__":
-    create_students("abcde", "student_test.json")
+    create_students("abcd", "student_test.json")
